@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
-
+import GlobalStyle from './GlobalStyle';
+import styled from 'styled-components';
+import Nav from './Nav';
+import Search from './Search';
+import SearchResult from './SearchResult';
+import { useState } from 'react';
+const Title = styled.h2`
+  font-family: '양진체', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  font-size: 40px;
+  text-shadow: 0px 2px 0px red;
+  margin: 30px;
+`;
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <GlobalStyle />
+      <Nav />
+      <main>
+        <Title>SEARCH FOR WHAT?</Title>
+        <Search />
+        <SearchResult />
+      </main>
     </div>
   );
 }
