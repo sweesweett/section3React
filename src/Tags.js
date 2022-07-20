@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const TagsDiv = styled.div`
@@ -17,6 +17,8 @@ const TagsDiv = styled.div`
     position: relative;
     color: white;
     border-radius: 10px;
+    cursor: pointer;
+
     ::after {
       content: '#';
       font-weight: 700;
@@ -55,6 +57,10 @@ const TagsNavBtn = styled.button`
   background-color: transparent;
   padding: 0;
   .material-icons {
+    &.colored {
+      filter: drop-shadow(0px 2px 0px red);
+      background-color: purple;
+    }
     font-size: 50px;
     width: 80px;
     height: 80px;
@@ -69,20 +75,36 @@ const TagsNavBtn = styled.button`
     line-height: 15px;
   }
 `;
-const Tags = ({ tagExample, setTagExample, randomTags }) => {
+const Tags = ({
+  tagExample,
+  setTagExample,
+  randomTags,
+  searchValue,
+  setSearchValue,
+  addTag,
+}) => {
+  const [currCategory, setCurrCategory] = useState('음식점');
   const getTags = (e) => {
     let tagList;
-    tagList = randomTags(e.target.textContent);
-    setTagExample(tagList);
+    if (e.target.className === 'material-icons') {
+      tagList = randomTags(e.target.textContent);
+      setCurrCategory(e.target.nextSibling.textContent);
+      setTagExample([...tagList]);
+    } else {
+      return;
+    }
   };
   useEffect(() => {
-    setTagExample(randomTags('restaurant'));
+    setTagExample([...randomTags('restaurant')]);
   }, []);
   return (
     <div>
+      <div>{currCategory} 관련 추천 태그</div>
       <TagsDiv>
         {tagExample.map((el, index) => (
-          <span key={index}>{el}</span>
+          <span key={index} onClick={addTag}>
+            {el}
+          </span>
         ))}
       </TagsDiv>
       <TagNavsDiv>

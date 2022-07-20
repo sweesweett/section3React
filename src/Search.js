@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Tags from './Tags';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SearchDiv = styled.div`
   padding: 10px;
@@ -38,6 +38,9 @@ const SearchDiv = styled.div`
 const Search = () => {
   // let defaultTag = () => {};
   const [tagExample, setTagExample] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const inputVal = useRef();
+  // useEffect
   const tag = {
     restaurant: [
       '맛집',
@@ -91,6 +94,9 @@ const Search = () => {
   };
   const randomTags = (t) => {
     let result = [];
+    if (t === 'shopping_cart') {
+      return [...tag[t]];
+    }
     for (let i = 0; i < 10; i++) {
       let tmp = tag[t][Math.floor(Math.random() * tag[t].length)];
       if (result.includes(tmp) === false) {
@@ -101,6 +107,18 @@ const Search = () => {
       }
     }
   };
+  const addTag = (e) => {
+    setSearchValue(`${searchValue} ${e.target.textContent}`);
+    setTagExample(tagExample.filter((el) => el !== e.target.textContent));
+    inputVal.current.value = `${searchValue} ${e.target.textContent}`;
+  };
+  const handleinput = (e) => {
+    if (e.key === 'Enter') {
+      console.log(e.target.value);
+    } else {
+      setSearchValue(e.target.value);
+    }
+  };
   return (
     <SearchDiv className='Search'>
       <div className='searchWrapper'>
@@ -109,6 +127,8 @@ const Search = () => {
           type='text'
           id='searchInput'
           placeholder='검색할 내용을 입력해주세요'
+          onKeyUp={handleinput}
+          ref={inputVal}
         />
         <span className='material-icons'>search</span>
       </div>
@@ -116,6 +136,9 @@ const Search = () => {
         tagExample={tagExample}
         setTagExample={setTagExample}
         randomTags={randomTags}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        addTag={addTag}
       />
     </SearchDiv>
   );
