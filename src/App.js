@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Nav from './Nav';
 import Search from './Search';
 import SearchResult from './SearchResult';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 const Title = styled.h2`
   font-family: '양진체', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   font-size: 40px;
@@ -12,6 +12,7 @@ const Title = styled.h2`
   margin: 30px;
 `;
 function App() {
+
   return (
     <div className='App'>
       <GlobalStyle />

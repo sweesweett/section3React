@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Tags from './Tags';
 import { useEffect, useRef, useState } from 'react';
-
+import axios from 'axios';
 const SearchDiv = styled.div`
   padding: 10px;
   .searchWrapper {
@@ -115,9 +115,40 @@ const Search = () => {
   const handleinput = (e) => {
     if (e.key === 'Enter') {
       console.log(e.target.value);
+      onSearch();
     } else {
       setSearchValue(e.target.value);
     }
+  };
+  const onSearch = async () => {
+    if (searchValue === '') {
+      return;
+    }
+    let uri = encodeURI(searchValue);
+    console.log(uri);
+    const result = await axios
+      .get(
+        ` https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/blog.json`,
+        {
+          params: {
+            query: uri,
+            display: 20,
+            start: 1,
+            sort: 'sim',
+          },
+          headers: {
+            'X-Naver-Client-Id': process.env.REACT_APP_CLIENT_ID,
+            'X-Naver-Client-Secret': process.env.REACT_APP_CLIENT_SECRET,
+          },
+        }
+      )
+
+      .then(({ data }) => console.log(data))
+      .catch((err) => console.log(err));
+    //process.env.REACT_APP_CLIENT_ID
+    //process.env.REACT_APP_CLIENT_SECRET
+    console.log(result);
+    //ㅎㅎ 그럴줄알았다 cors.......gg....
   };
   return (
     <SearchDiv className='Search'>
@@ -130,7 +161,9 @@ const Search = () => {
           onKeyUp={handleinput}
           ref={inputVal}
         />
-        <span className='material-icons'>search</span>
+        <span className='material-icons' onClick={onSearch}>
+          search
+        </span>
       </div>
       <Tags
         tagExample={tagExample}
