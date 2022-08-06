@@ -124,26 +124,12 @@ const Search = () => {
     if (searchValue === '') {
       return;
     }
-    let uri = encodeURI(searchValue);
-    console.log(uri);
+    // let uri = encodeURI(searchValue);
+    // console.log(uri);
     const result = await axios
-      .get(
-        ` https://cors-anywhere.herokuapp.com/https://openapi.naver.com/v1/search/blog.json`,
-        {
-          params: {
-            query: uri,
-            display: 20,
-            start: 1,
-            sort: 'sim',
-          },
-          headers: {
-            'X-Naver-Client-Id': process.env.REACT_APP_CLIENT_ID,
-            'X-Naver-Client-Secret': process.env.REACT_APP_CLIENT_SECRET,
-          },
-        }
-      )
+      .get(` http://localhost:4000/search/blog?query=${searchValue}`)
 
-      .then(({ data }) => console.log(data))
+      .then(({ data }) => console.log(data.items))
       .catch((err) => console.log(err));
     //process.env.REACT_APP_CLIENT_ID
     //process.env.REACT_APP_CLIENT_SECRET

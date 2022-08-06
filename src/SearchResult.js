@@ -24,7 +24,8 @@ const ResultUl = styled.ul`
         span.title {
           margin-right: 10px;
           flex: 1 1 70%;
-          font-size: 18px;
+          font-size: 16px;
+          letter-spacing: 0;
         }
         span.date {
           flex: 1 1 30%;
@@ -51,23 +52,35 @@ const ResultUl = styled.ul`
   }
 `;
 
-const SearchResult = () => {
+const SearchResult = ({ searchResult }) => {
   return (
     <>
       <div>검색 결과</div>
-      <ResultUl className='SearchResult'>
-        <li>
-          <img src='' alt='' />
-          <div className='contentsWrapper'>
-            <div className='titleNdate'>
-              <span className='title'>제목</span>
-              <span className='date'>날짜</span>
-            </div>
-            <div className='content'>내용</div>
-          </div>
-          <button className='material-icons'>favorite</button>
-        </li>
-      </ResultUl>
+      {searchResult.map((el) => {
+        return (
+          <ResultUl className='SearchResult'>
+            <li>
+              <img src='' alt='' />
+              <div className='contentsWrapper'>
+                <div className='titleNdate'>
+                  <span className='title'>
+                    <a href={el.link}>
+                      {el.title
+                        .replaceAll('<b>', '')
+                        .replaceAll('</b>', '')
+                        .replaceAll('&quot;', '')}
+                      {/* 아 수정해야지 */}
+                    </a>
+                  </span>
+                  <span className='date'>{el.postdate}</span>
+                </div>
+                <div className='content'>내용</div>
+              </div>
+              <button className='material-icons'>favorite</button>
+            </li>
+          </ResultUl>
+        );
+      })}
     </>
   );
 };
