@@ -27,7 +27,7 @@ function App() {
       <Nav />
       <main>
         <Title>SEARCH FOR WHAT?</Title>
-        <Search />
+        <Search setSearchResult={setSearchResult} />
         <SearchResult searchResult={searchResult} />
       </main>
     </div>

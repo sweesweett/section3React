@@ -1,39 +1,36 @@
 import styled from 'styled-components';
 const ResultUl = styled.ul`
   width: 800px;
-  background-color: black;
   padding: 10px;
   li {
     display: flex;
-    padding: 5px;
+    padding: 10px 20px;
     width: 780px;
     height: 120px;
     background-color: white;
+    border: 1px solid #0909092b;
+    border-radius: 5px;
     position: relative;
-
-    img {
-      width: 110px;
-      height: 110px;
-      flex: 1 1 15%;
-    }
     .contentsWrapper {
-      flex: 1 1 75%;
+      flex: 1 1 90%;
       .titleNdate {
         margin-right: 100px;
         display: flex;
         span.title {
           margin-right: 10px;
-          flex: 1 1 70%;
+          flex: 1 1 90%;
           font-size: 16px;
           letter-spacing: 0;
+          font-weight: 700;
         }
         span.date {
-          flex: 1 1 30%;
+          flex: 1 1 10%;
           font-size: 14px;
         }
       }
       .content {
         margin-top: 5px;
+        font-size: 14px;
       }
     }
 
@@ -56,11 +53,11 @@ const SearchResult = ({ searchResult }) => {
   return (
     <>
       <div>검색 결과</div>
-      {searchResult.map((el) => {
+      {searchResult.map((el, index) => {
         return (
-          <ResultUl className='SearchResult'>
+          <ResultUl className='SearchResult' key={index}>
             <li>
-              <img src='' alt='' />
+              {/* <img src='' alt='' /> */}
               <div className='contentsWrapper'>
                 <div className='titleNdate'>
                   <span className='title'>
@@ -68,13 +65,26 @@ const SearchResult = ({ searchResult }) => {
                       {el.title
                         .replaceAll('<b>', '')
                         .replaceAll('</b>', '')
-                        .replaceAll('&quot;', '')}
+                        .replaceAll('&quot;', '')
+                        .replaceAll('&apos;', '')}
                       {/* 아 수정해야지 */}
                     </a>
                   </span>
                   <span className='date'>{el.postdate}</span>
                 </div>
-                <div className='content'>내용</div>
+                <div className='content'>
+                  <a href={el.link}>
+                    {' '}
+                    {el.description
+                      .slice(0, 45)
+                      .replaceAll('<b>', '')
+                      .replaceAll('</b>', '')
+                      .replaceAll('&quot;', '')
+                      .replaceAll('&apos;', '')
+                      .replaceAll('&amp;', '')}
+                    ...
+                  </a>
+                </div>
               </div>
               <button className='material-icons'>favorite</button>
             </li>

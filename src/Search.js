@@ -35,7 +35,7 @@ const SearchDiv = styled.div`
   }
 `;
 
-const Search = () => {
+const Search = ({ setSearchResult }) => {
   // let defaultTag = () => {};
   const [tagExample, setTagExample] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -46,7 +46,6 @@ const Search = () => {
       '맛집',
       '추천',
       '내돈내산',
-      '돈쭐',
       '존맛',
       '짱맛',
       '대존맛',
@@ -58,7 +57,7 @@ const Search = () => {
       '오지는',
       '가성비',
       '미쳤음',
-      '미친놈',
+      '로컬추천',
     ],
     local_cafe: [
       '카페',
@@ -69,12 +68,18 @@ const Search = () => {
       '미쳤음',
       '사진찍기',
       '인생샷',
-      '미친놈',
       '친구',
       '분위기',
       '내돈내산',
     ],
-    shopping_cart: ['제품', '추천', '내돈내산', '가성비', '친구선물', '미쳤음'],
+    shopping_cart: [
+      '추천',
+      '내돈내산',
+      '가성비',
+      '친구선물',
+      '실사용기',
+      '1달 사용',
+    ],
     map: [
       '여행지',
       '뷰개쩌는',
@@ -129,7 +134,7 @@ const Search = () => {
     const result = await axios
       .get(` http://localhost:4000/search/blog?query=${searchValue}`)
 
-      .then(({ data }) => console.log(data.items))
+      .then(({ data }) => setSearchResult(data.items))
       .catch((err) => console.log(err));
     //process.env.REACT_APP_CLIENT_ID
     //process.env.REACT_APP_CLIENT_SECRET
