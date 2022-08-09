@@ -9,18 +9,30 @@ const SearchDiv = styled.div`
     justify-content: center;
     align-items: center;
     width: 800px;
+    position: relative;
     label {
       margin: 10px;
       font-size: 20px;
       font-weight: 700;
       flex: 1 1 7%;
     }
-    span {
+    span#searchBtn {
       margin: 10px;
       font-size: 50px;
       font-weight: 700;
       cursor: pointer;
       flex: 1 1 8%;
+    }
+    span#clearBtn {
+      position: absolute;
+      padding: 2px;
+      right: 100px;
+      color: white;
+      background-color: black;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: ${(props) => (props.clear === 'yes' ? '1' : '0')};
+      transition: opacity ease-out 0.3s;
     }
     input {
       flex: 1 1 85%;
@@ -117,6 +129,10 @@ const Search = ({ setSearchResult }) => {
     setTagExample(tagExample.filter((el) => el !== e.target.textContent));
     inputVal.current.value = `${searchValue} ${e.target.textContent}`;
   };
+  const handleClearSearch = () => {
+    inputVal.current.value = '';
+    setSearchValue('');
+  };
   const handleinput = (e) => {
     if (e.key === 'Enter') {
       console.log(e.target.value);
@@ -134,15 +150,14 @@ const Search = ({ setSearchResult }) => {
     const result = await axios
       .get(` http://localhost:4000/search/blog?query=${searchValue}`)
 
-      .then(({ data }) => setSearchResult(data.items))
-      .catch((err) => console.log(err));
-    //process.env.REACT_APP_CLIENT_ID
-    //process.env.REACT_APP_CLIENT_SECRET
-    console.log(result);
-    //ㅎㅎ 그럴줄알았다 cors.......gg....
+      .then(({ data }) => {
+        console.log(data.items);
+        return setSearchResult(data.items);
+      })
+      .catch((err) => alert('오류가 발생했습니다. 잠시 후에 시도해 주세요'));
   };
   return (
-    <SearchDiv className='Search'>
+    <SearchDiv className='Search' clear={searchValue !== '' ? 'yes' : 'no'}>
       <div className='searchWrapper'>
         <label htmlFor='searchInput'>검색</label>
         <input
@@ -152,7 +167,12 @@ const Search = ({ setSearchResult }) => {
           onKeyUp={handleinput}
           ref={inputVal}
         />
-        <span className='material-icons' onClick={onSearch}>
+        {/* {searchValue !== '' && ( */}
+        <span class='material-icons' id='clearBtn' onClick={handleClearSearch}>
+          clear
+        </span>
+        {/* )} */}
+        <span className='material-icons' id='searchBtn' onClick={onSearch}>
           search
         </span>
       </div>

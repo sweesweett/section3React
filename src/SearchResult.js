@@ -13,6 +13,9 @@ const ResultUl = styled.ul`
     position: relative;
     .contentsWrapper {
       flex: 1 1 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       .titleNdate {
         margin-right: 100px;
         display: flex;
@@ -31,6 +34,10 @@ const ResultUl = styled.ul`
       .content {
         margin-top: 5px;
         font-size: 14px;
+      }
+      span.blogName > a {
+        font-size: 12px;
+        color: #616161;
       }
     }
 
@@ -53,6 +60,7 @@ const SearchResult = ({ searchResult }) => {
   return (
     <>
       <div>검색 결과</div>
+      <div>관련도순/최신순</div>
       {searchResult.map((el, index) => {
         return (
           <ResultUl className='SearchResult' key={index}>
@@ -74,7 +82,6 @@ const SearchResult = ({ searchResult }) => {
                 </div>
                 <div className='content'>
                   <a href={el.link}>
-                    {' '}
                     {el.description
                       .slice(0, 45)
                       .replaceAll('<b>', '')
@@ -85,6 +92,9 @@ const SearchResult = ({ searchResult }) => {
                     ...
                   </a>
                 </div>
+                <span className='blogName'>
+                  <a href={el.bloggerlink}>{el.bloggername}</a>
+                </span>
               </div>
               <button className='material-icons'>favorite</button>
             </li>
