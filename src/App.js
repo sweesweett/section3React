@@ -14,9 +14,10 @@ const Title = styled.h2`
 `;
 function App() {
   const [searchResult, setSearchResult] = useState([]);
+  const [favorite, setFavorite] = useState([]);
   useEffect(() => {
     axios
-      .get(` http://localhost:4000/search/blog?query="강남 맛집"`)
+      .get(` http://localhost:4000/search/blog?query="코드스테이츠"`)
 
       .then(({ data }) => setSearchResult(data.items))
       .catch((err) => console.log(err));
@@ -28,7 +29,11 @@ function App() {
       <main>
         <Title>SEARCH FOR WHAT?</Title>
         <Search setSearchResult={setSearchResult} />
-        <SearchResult searchResult={searchResult} />
+        <SearchResult
+          searchResult={searchResult}
+          setFavorite={setFavorite}
+          favorite={favorite}
+        />
       </main>
     </div>
   );

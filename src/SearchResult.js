@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 const ResultUl = styled.ul`
   width: 800px;
@@ -20,12 +21,35 @@ const ResultUl = styled.ul`
         margin-right: 100px;
         display: flex;
         span.title {
+          position: relative;
           margin-right: 10px;
           flex: 1 1 90%;
           font-size: 16px;
-          letter-spacing: 0;
+
           font-weight: 700;
+          > a {
+            letter-spacing: 1px;
+          }
+          /* ::after {
+            content: '';
+            position: absolute;
+            width: 0px;
+            height: 15px;
+            background: linear-gradient(
+              90deg,
+              rgba(0, 0, 0, 0.4) 0%,
+              rgba(0, 0, 0, 0) 100%
+            );
+            left: 0;
+            top: 5px;
+            z-index: 0;
+            transition: width 0.8s;
+          }
+          :hover::after {
+            width: 400px;
+          } */
         }
+
         span.date {
           flex: 1 1 10%;
           font-size: 14px;
@@ -38,6 +62,7 @@ const ResultUl = styled.ul`
       span.blogName > a {
         font-size: 12px;
         color: #616161;
+        letter-spacing: 0;
       }
     }
 
@@ -56,7 +81,7 @@ const ResultUl = styled.ul`
   }
 `;
 
-const SearchResult = ({ searchResult }) => {
+const SearchResult = ({ searchResult, setFavorite, favorite }) => {
   return (
     <>
       <div>검색 결과</div>
@@ -96,7 +121,14 @@ const SearchResult = ({ searchResult }) => {
                   <a href={el.bloggerlink}>{el.bloggername}</a>
                 </span>
               </div>
-              <button className='material-icons'>favorite</button>
+              <button
+                className='material-icons'
+                onClick={() => {
+                  setFavorite([...favorite, el]);
+                }}
+              >
+                favorite
+              </button>
             </li>
           </ResultUl>
         );
@@ -104,4 +136,4 @@ const SearchResult = ({ searchResult }) => {
     </>
   );
 };
-export default SearchResult;
+export default React.memo(SearchResult);

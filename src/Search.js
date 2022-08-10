@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Tags from './Tags';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 const SearchDiv = styled.div`
   padding: 10px;
@@ -49,7 +49,7 @@ const SearchDiv = styled.div`
 
 const Search = ({ setSearchResult }) => {
   // let defaultTag = () => {};
-  const [tagExample, setTagExample] = useState([]);
+
   const [searchValue, setSearchValue] = useState('');
   const inputVal = useRef();
   // useEffect
@@ -124,11 +124,13 @@ const Search = ({ setSearchResult }) => {
       }
     }
   };
+
   const addTag = (e) => {
     setSearchValue(`${searchValue} ${e.target.textContent}`);
     setTagExample(tagExample.filter((el) => el !== e.target.textContent));
     inputVal.current.value = `${searchValue} ${e.target.textContent}`;
   };
+  const [tagExample, setTagExample] = useState([...randomTags('restaurant')]);
   const handleClearSearch = () => {
     inputVal.current.value = '';
     setSearchValue('');
@@ -188,4 +190,4 @@ const Search = ({ setSearchResult }) => {
   );
 };
 
-export default Search;
+export default React.memo(Search);

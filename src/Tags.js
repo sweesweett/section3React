@@ -57,14 +57,18 @@ const TagsNavBtn = styled.button`
   background-color: transparent;
   padding: 0;
   .material-icons {
-    &.colored {
+    /* &.colored {
       filter: drop-shadow(0px 2px 0px red);
       background-color: purple;
-    }
+    } */
+    background-color: ${(props) =>
+      props.active === 'active' ? 'black' : '#000000b3'};
+    box-shadow: ${(props) =>
+      props.active === 'active' && '0px 2px 6px #000000b3'};
     font-size: 50px;
     width: 80px;
     height: 80px;
-    background-color: black;
+    /* background-color: black; */
     line-height: 80px;
     border-radius: 50%;
     color: white;
@@ -94,9 +98,6 @@ const Tags = ({
       return;
     }
   };
-  useEffect(() => {
-    setTagExample([...randomTags('restaurant')]);
-  }, []);
   return (
     <div>
       <div>{currCategory} 관련 추천 태그</div>
@@ -108,19 +109,35 @@ const Tags = ({
         ))}
       </TagsDiv>
       <TagNavsDiv>
-        <TagsNavBtn className='navBtn' onClick={getTags}>
+        <TagsNavBtn
+          className='navBtn'
+          onClick={getTags}
+          active={currCategory === '음식점' && 'active'}
+        >
           <span className='material-icons'>restaurant</span>
           <span>음식점</span>
         </TagsNavBtn>
-        <TagsNavBtn className='navBtn' onClick={getTags}>
+        <TagsNavBtn
+          className='navBtn'
+          onClick={getTags}
+          active={currCategory === '카페' && 'active'}
+        >
           <span className='material-icons'>local_cafe</span>
           <span>카페</span>
         </TagsNavBtn>
-        <TagsNavBtn className='navBtn' onClick={getTags}>
+        <TagsNavBtn
+          className='navBtn'
+          onClick={getTags}
+          active={currCategory === '제품' && 'active'}
+        >
           <span className='material-icons'>shopping_cart</span>
           <span>제품</span>
         </TagsNavBtn>
-        <TagsNavBtn className='navBtn' onClick={getTags}>
+        <TagsNavBtn
+          className='navBtn'
+          onClick={getTags}
+          active={currCategory === '여행지' && 'active'}
+        >
           <span className='material-icons'>map</span>
           <span>여행지</span>
         </TagsNavBtn>
