@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import uuid from 'react-uuid';
 const ResultUl = styled.ul`
   width: 800px;
   padding: 10px;
@@ -77,6 +78,23 @@ const ResultUl = styled.ul`
       border: none;
       background-color: transparent;
       flex: 1 1 10%;
+      /* animation-name: (${(props) => (props.like ? 'like' : 'none')}); */
+      &.like {
+        animation: like 0.5s ease-in 1 forwards;
+        animation-duration: 0.5s;
+        /* animation-timing-function: ease-in;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards; */
+      }
+      @keyframes like {
+        0% {
+          color: black;
+        }
+        100% {
+          color: red;
+          text-shadow: 0px 0px 5px red;
+        }
+      }
     }
   }
 `;
@@ -123,8 +141,21 @@ const SearchResult = ({ searchResult, setFavorite, favorite }) => {
               </div>
               <button
                 className='material-icons'
-                onClick={() => {
-                  setFavorite([...favorite, el]);
+                onClick={(e) => {
+                  e.target.classList.toggle('like');
+                  if (
+                    favorite.findIndex(
+                      (element) => element.title === el.title
+                    ) === -1
+                  ) {
+                    const id = uuid();
+                    console.log([...favorite, { ...el, id }]);
+                    localStorage.setItem(
+                      'likeList',
+                      JSON.stringify([...favorite, { ...el, id }])
+                    );
+                    setFavorite([...favorite, { ...el, id }]);
+                  }
                 }}
               >
                 favorite

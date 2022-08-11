@@ -72,6 +72,7 @@ const TagsNavBtn = styled.button`
     line-height: 80px;
     border-radius: 50%;
     color: white;
+    transition: background-color ease-out 0.5s;
   }
   span:last-child {
     margin-top: 5px;
