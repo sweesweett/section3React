@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import uuid from 'react-uuid';
-const ResultUl = styled.ul`
+export const ResultUl = styled.ul`
   width: 800px;
   padding: 10px;
   li {

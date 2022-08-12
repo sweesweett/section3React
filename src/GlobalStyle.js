@@ -27,6 +27,9 @@ const GlobalStyle = createGlobalStyle`
     text-decoration:none;
     color:black;
   }
+  a>.material-icons{
+    color:white;
+  }
 `;
 
 export default GlobalStyle;
