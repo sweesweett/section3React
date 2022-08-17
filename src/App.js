@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import Nav from './components/Nav';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import SearchPage from './pages/SearchPage';
 import FavoriteBlogs from './pages/FavoriteBlogs';
+import ToDoList from './pages/ToDoList';
 const Title = styled.h2`
   font-family: '양진체', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   font-size: 40px;
@@ -14,13 +15,9 @@ const Title = styled.h2`
   margin: 30px;
 `;
 function App() {
-  let initialState = JSON.parse(localStorage.getItem('likeList'));
-  console.log(initialState);
-  if (initialState === null) {
-    initialState = [];
-  }
+  const navigate = useNavigate();
   const [searchResult, setSearchResult] = useState([]);
-  const [favorite, setFavorite] = useState(initialState);
+  const [favorite, setFavorite] = useState([]);
   useEffect(() => {
     axios
       .get(` http://localhost:4000/search/blog?query="코드스테이츠"`)
@@ -28,15 +25,15 @@ function App() {
       .then(({ data }) => setSearchResult(data.items))
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <div className='App'>
       <GlobalStyle />
       <Nav />
       <main>
-        <Title>SEARCH FOR WHAT?</Title>
+        <Title onClick={() => navigate('/')}>SEARCH FOR WHAT?</Title>
         <Routes>
           <Route
-            exact
             path='/'
             element={
               <SearchPage
@@ -48,12 +45,12 @@ function App() {
             }
           />
           <Route
-            exact
             path='/like'
             element={
               <FavoriteBlogs favorite={favorite} setFavorite={setFavorite} />
             }
           />
+          <Route path='/todo' element={<ToDoList />} />
         </Routes>
       </main>
     </div>

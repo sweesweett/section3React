@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import uuid from 'react-uuid';
+import axios from 'axios';
 export const ResultUl = styled.ul`
   width: 800px;
   padding: 10px;
@@ -100,6 +101,12 @@ export const ResultUl = styled.ul`
 `;
 
 const SearchResult = ({ searchResult, setFavorite, favorite }) => {
+  const postFavorite = (a) => {
+    console.log(a);
+    return axios
+      .post('http://localhost:4000/like/', a)
+      .then((res) => console.log('perfect'));
+  };
   return (
     <>
       <div>검색 결과</div>
@@ -143,19 +150,9 @@ const SearchResult = ({ searchResult, setFavorite, favorite }) => {
                 className='material-icons'
                 onClick={(e) => {
                   e.target.classList.toggle('like');
-                  if (
-                    favorite.findIndex(
-                      (element) => element.title === el.title
-                    ) === -1
-                  ) {
-                    const id = uuid();
-                    console.log([...favorite, { ...el, id }]);
-                    localStorage.setItem(
-                      'likeList',
-                      JSON.stringify([...favorite, { ...el, id }])
-                    );
-                    setFavorite([...favorite, { ...el, id }]);
-                  }
+                  const id = uuid();
+                  let data = { id, ...el };
+                  postFavorite(data);
                 }}
               >
                 favorite

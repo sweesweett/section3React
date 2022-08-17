@@ -1,7 +1,18 @@
 import { ResultUl } from '../components/SearchResult';
-
+import axios from 'axios';
+import { useEffect } from 'react';
 const FavoriteBlogs = ({ favorite, setFavorite }) => {
-  console.log(favorite, 'test');
+  useEffect(() => {
+    axios
+      .get('http://localhost:4000/like')
+      .then(({ data }) => setFavorite(data));
+  }, []); ///쓰읍애매
+  const deleteLike = async (id) => {
+    return await axios
+      .delete(`http://localhost:4000/like/${id}`)
+      .then(({ data }) => setFavorite(data));
+  };
+
   return (
     <>
       <div>블로그 좋아요 리스트</div>
@@ -44,13 +55,7 @@ const FavoriteBlogs = ({ favorite, setFavorite }) => {
                 className='material-icons like'
                 onClick={(e) => {
                   e.target.classList.toggle('like');
-                  setTimeout(() => {
-                    const newArr = favorite.filter(
-                      (element) => element.id !== el.id
-                    );
-                    localStorage.setItem('likeList', JSON.stringify(newArr));
-                    setFavorite(newArr);
-                  }, 500);
+                  return deleteLike(el.id);
                 }}
               >
                 favorite

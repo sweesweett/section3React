@@ -8,6 +8,9 @@ const Nav = () => {
       <Link to='/like'>
         <span class='material-icons'>favorite</span>
       </Link>
+      <Link to='todo'>
+        <span class='material-icons'>article</span>
+      </Link>
     </div>
   );
 };
