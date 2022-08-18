@@ -37,15 +37,16 @@ app.get('/search/blog', function (req, res) {
     .catch((err) => res.status(400).send(err.message));
 });
 app.get('/like', function (req, res) {
-  return res.json(dummyLike);
+  return res.json(newDummyLike);
 });
 app.post('/like', function (req, res) {
-  if (dummyLike.findIndex((el) => el.title === req.body.title) === -1) {
-    dummyLike.push(req.body);
+  if (newDummyLike.findIndex((el) => el.title === req.body.title) === -1) {
+    newDummyLike.push(req.body);
   }
 });
 app.delete('/like/:id', function (req, res) {
-  newDummyLike = newDummyLike.filter((el) => el.id !== req.params.id);
+  console.log(req.params.id);
+  newDummyLike = newDummyLike.filter((el) => el.id != req.params.id);
   return res.json(newDummyLike);
 });
 //------------------------
