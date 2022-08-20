@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# search for what
+### 코드스테이츠 솔로프로젝트  
+  
+### 개발 기간 22.07~    
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 사용한 라이브러리/ 프레임워크
+#### 프론트엔드  
 
-## Available Scripts
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)**(create-react-app)**  
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)  
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)  
+**axios**  
+**react-uuid**  
+   
+#### 백엔드  
 
-In the project directory, you can run:
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)   
+**axios**  
+**cors**  
+**dotenv**  
 
-### `npm start`
+### 특징
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 검색어 카테고리에 따라 랜덤한 태그를 추천  
+- 해당 태그를 클릭했을 떄, 검색창에 적용할 수 있음  
+- Express.js를 이용하여 네이버 검색 API를 사용하여 해당 검색 결과를 하단에 나타냄
+- 좋아요 리스트를 따로 볼 수 있음
+- 하트 버튼을 눌렀을 때 서버와 통신(좋아요 리스트에 추가 서버는 server 브랜치)
+- 좋아요 리스트 페이지에서 하트를 눌렀을 때 리스트에서 삭제 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### 개발 사항 흐름
+1.0  홈 화면의 기본 레이아웃 구현
+1.1  검색어 태그 기능 구현  
+1.2  프록시서버 구현  
+1.3  검색 결과 레이아웃 변경(사진o->사진x)  
+1.4  좋아요 리스트 구현을 위해서 하트 버튼을 클릭할 때 해당 내용을 로컬 스토리지에 저장   
+2.0  리액트 라우터를 사용하여 좋아요 리스트/ 홈 페이지 구현  
+2.1  리스트 좋아요 리스트 추가 / 삭제 변경 (로컬 스토리지-> 서버와 통신)  
+2.2  섹션 4 CRUD 미션을 위해 todo list 구현 
+2.3  crud 서버쪽 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 배포된 웹페이지 화면  
+추후에 올릴 예정
