@@ -14,6 +14,7 @@ export const ResultUl = styled.ul`
     border: 1px solid #0909092b;
     border-radius: 5px;
     position: relative;
+    margin: 10px auto;
     .contentsWrapper {
       flex: 1 1 90%;
       display: flex;
@@ -111,10 +112,10 @@ const SearchResult = ({ searchResult, setFavorite, favorite }) => {
     <>
       <div>검색 결과</div>
       <div>관련도순/최신순</div>
-      {searchResult.map((el, index) => {
-        return (
-          <ResultUl className='SearchResult' key={index}>
-            <li>
+      <ResultUl className='SearchResult'>
+        {searchResult.map((el, index) => {
+          return (
+            <li key={index}>
               {/* <img src='' alt='' /> */}
               <div className='contentsWrapper'>
                 <div className='titleNdate'>
@@ -158,9 +159,9 @@ const SearchResult = ({ searchResult, setFavorite, favorite }) => {
                 favorite
               </button>
             </li>
-          </ResultUl>
-        );
-      })}
+          );
+        })}
+      </ResultUl>
     </>
   );
 };

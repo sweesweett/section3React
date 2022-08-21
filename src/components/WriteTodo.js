@@ -47,14 +47,20 @@ const WriteDiv = styled.div`
 `;
 
 const WriteTodo = ({ setToDoData }) => {
-  const title = useRef();
-  const content = useRef();
+  const [favorite, setFavorite] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:4000/like')
+      .then(({ data }) => setFavorite(data));
+  }, []);
+  const memo = useRef();
+  const likeChoice = useRef();
   const handleSubmit = () => {
     const id = uuid();
     const data = {
       id,
-      title: title.current.value,
-      content: content.current.value,
+      memo: memo.current.value,
+      // content: content.current.value,
     };
     axios
       .post('http://localhost:4000/todo', data)
@@ -66,17 +72,20 @@ const WriteTodo = ({ setToDoData }) => {
   };
   return (
     <WriteDiv>
-      <label htmlFor='writeTitle'>제목</label>
-      <input type='text' id='writeTitle' className='title' ref={title} />
-      <label htmlFor='writeContent'>내용</label>
-      <textarea
-        id='writeContent'
-        name=''
-        cols='50'
-        rows='10'
-        className='content'
-        ref={content}
-      ></textarea>
+      <label htmlFor='writeMemo'>제목</label>
+      <input type='text' id='writeMemo' ref={memo} />
+      <label htmlFor='writeSelect'>좋아요 리스트</label>
+      <select name='' id='' ref={likeChoice}>
+        {favorite.map((el, index) => (
+          <option key={index}>
+            {el.title
+              .replaceAll('<b>', '')
+              .replaceAll('</b>', '')
+              .replaceAll('&quot;', '')
+              .replaceAll('&apos;', '')}
+          </option>
+        ))}
+      </select>
       <button onClick={handleSubmit}>등록</button>
     </WriteDiv>
   );

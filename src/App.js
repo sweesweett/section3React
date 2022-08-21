@@ -50,7 +50,10 @@ function App() {
               <FavoriteBlogs favorite={favorite} setFavorite={setFavorite} />
             }
           />
-          <Route path='/todo' element={<ToDoList />} />
+          <Route
+            path='/todo'
+            element={<ToDoList setFavorite={setFavorite} favorite={favorite} />}
+          />
         </Routes>
       </main>
     </div>

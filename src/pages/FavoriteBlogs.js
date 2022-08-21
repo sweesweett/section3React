@@ -6,20 +6,19 @@ const FavoriteBlogs = ({ favorite, setFavorite }) => {
     axios
       .get('http://localhost:4000/like')
       .then(({ data }) => setFavorite(data));
-  }, []); ///쓰읍애매
+  }, [setFavorite]);
   const deleteLike = async (id) => {
     return await axios
       .delete(`http://localhost:4000/like/${id}`)
       .then(({ data }) => setFavorite(data));
   };
-
   return (
     <>
       <div>블로그 좋아요 리스트</div>
-      {favorite.map((el) => {
-        return (
-          <ResultUl className='SearchResult' key={el.id}>
-            <li>
+      <ResultUl className='SearchResult'>
+        {favorite.map((el) => {
+          return (
+            <li key={el.id}>
               {/* <img src='' alt='' /> */}
               <div className='contentsWrapper'>
                 <div className='titleNdate'>
@@ -61,9 +60,9 @@ const FavoriteBlogs = ({ favorite, setFavorite }) => {
                 favorite
               </button>
             </li>
-          </ResultUl>
-        );
-      })}
+          );
+        })}
+      </ResultUl>
     </>
   );
 };

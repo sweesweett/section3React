@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const TagsDiv = styled.div`
   width: 800px;
   height: 100px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #eceff1;
   display: flex;
   align-items: center;
   margin: 10px auto;
@@ -62,9 +62,9 @@ const TagsNavBtn = styled.button`
       background-color: purple;
     } */
     background-color: ${(props) =>
-      props.active === 'active' ? 'black' : '#000000b3'};
+      props.active === 'active' ? 'black' : '#babdbe'};
     box-shadow: ${(props) =>
-      props.active === 'active' && '0px 2px 6px #000000b3'};
+      props.active === 'active' && '0px 2px 6px #babdbe'};
     font-size: 50px;
     width: 80px;
     height: 80px;
@@ -80,70 +80,72 @@ const TagsNavBtn = styled.button`
     line-height: 15px;
   }
 `;
-const Tags = ({
-  tagExample,
-  setTagExample,
-  randomTags,
-  searchValue,
-  setSearchValue,
-  addTag,
-}) => {
-  const [currCategory, setCurrCategory] = useState('음식점');
-  const getTags = (e) => {
-    let tagList;
-    if (e.target.className === 'material-icons') {
-      tagList = randomTags(e.target.textContent);
-      setCurrCategory(e.target.nextSibling.textContent);
-      setTagExample([...tagList]);
-    } else {
-      return;
-    }
-  };
-  return (
-    <div>
-      <div>{currCategory} 관련 추천 태그</div>
-      <TagsDiv>
-        {tagExample.map((el, index) => (
-          <span key={index} onClick={addTag}>
-            {el}
-          </span>
-        ))}
-      </TagsDiv>
-      <TagNavsDiv>
-        <TagsNavBtn
-          className='navBtn'
-          onClick={getTags}
-          active={currCategory === '음식점' && 'active'}
-        >
-          <span className='material-icons'>restaurant</span>
-          <span>음식점</span>
-        </TagsNavBtn>
-        <TagsNavBtn
-          className='navBtn'
-          onClick={getTags}
-          active={currCategory === '카페' && 'active'}
-        >
-          <span className='material-icons'>local_cafe</span>
-          <span>카페</span>
-        </TagsNavBtn>
-        <TagsNavBtn
-          className='navBtn'
-          onClick={getTags}
-          active={currCategory === '제품' && 'active'}
-        >
-          <span className='material-icons'>shopping_cart</span>
-          <span>제품</span>
-        </TagsNavBtn>
-        <TagsNavBtn
-          className='navBtn'
-          onClick={getTags}
-          active={currCategory === '여행지' && 'active'}
-        >
-          <span className='material-icons'>map</span>
-          <span>여행지</span>
-        </TagsNavBtn>
-      </TagNavsDiv>
-    </div>
-  );
-};
-export default Tags;
+const Tags = React.memo(
+  ({
+    tagExample,
+    setTagExample,
+    randomTags,
+    searchValue,
+    setSearchValue,
+    addTag,
+  }) => {
+    const [currCategory, setCurrCategory] = useState('음식점');
+    const getTags = (e) => {
+      let tagList;
+      if (e.target.className === 'material-icons') {
+        tagList = randomTags(e.target.textContent);
+        setCurrCategory(e.target.nextSibling.textContent);
+        setTagExample([...tagList]);
+      } else {
+        return;
+      }
+    };
+    return (
+      <div>
+        <div>{currCategory} 관련 추천 태그</div>
+        <TagsDiv>
+          {tagExample.map((el, index) => (
+            <span key={index} onClick={addTag}>
+              {el}
+            </span>
+          ))}
+        </TagsDiv>
+        <TagNavsDiv>
+          <TagsNavBtn
+            className='navBtn'
+            onClick={getTags}
+            active={currCategory === '음식점' && 'active'}
+          >
+            <span className='material-icons'>restaurant</span>
+            <span>음식점</span>
+          </TagsNavBtn>
+          <TagsNavBtn
+            className='navBtn'
+            onClick={getTags}
+            active={currCategory === '카페' && 'active'}
+          >
+            <span className='material-icons'>local_cafe</span>
+            <span>카페</span>
+          </TagsNavBtn>
+          <TagsNavBtn
+            className='navBtn'
+            onClick={getTags}
+            active={currCategory === '제품' && 'active'}
+          >
+            <span className='material-icons'>shopping_cart</span>
+            <span>제품</span>
+          </TagsNavBtn>
+          <TagsNavBtn
+            className='navBtn'
+            onClick={getTags}
+            active={currCategory === '여행지' && 'active'}
+          >
+            <span className='material-icons'>map</span>
+            <span>여행지</span>
+          </TagsNavBtn>
+        </TagNavsDiv>
+      </div>
+    );
+  }
+);
+export default React.memo(Tags);

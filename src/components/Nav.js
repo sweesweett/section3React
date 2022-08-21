@@ -1,5 +1,6 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-const Nav = () => {
+const Nav = React.memo(() => {
   return (
     <div className='Nav'>
       <Link to='/'>
@@ -13,5 +14,5 @@ const Nav = () => {
       </Link>
     </div>
   );
-};
-export default Nav;
+});
+export default React.memo(Nav);

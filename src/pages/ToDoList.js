@@ -7,7 +7,7 @@ const TodoUl = styled.ul`
   width: 800px;
   padding: 10px;
 `;
-const ToDoList = () => {
+const ToDoList = ({ favorite }) => {
   const [toDoData, setToDoData] = useState([]);
   useEffect(() => {
     axios
@@ -16,14 +16,16 @@ const ToDoList = () => {
         setToDoData([...data]);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [setToDoData]);
   return (
     <>
-      {/* <WriteTodo setToDoData={setToDoData} />
+      <WriteTodo setToDoData={setToDoData} favorite={favorite} />
       <div>To Do List</div>
-      {toDoData.map((el) => (
-        <Todo el={el} setToDoData={setToDoData} key={el.id} />
-      ))} */}
+      <TodoUl>
+        {toDoData.map((el) => (
+          <Todo el={el} setToDoData={setToDoData} key={el.id} />
+        ))}
+      </TodoUl>
       {/* 보류 */}
     </>
   );

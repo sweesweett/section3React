@@ -43,6 +43,9 @@ const SearchDiv = styled.div`
       font-size: 20px;
       border: 5px solid black;
       filter: text-shadow(0px 2px 0px red);
+      :focus {
+        background-color: #eceff1;
+      }
     }
   }
 `;
@@ -53,63 +56,64 @@ const Search = ({ setSearchResult }) => {
   const [searchValue, setSearchValue] = useState('');
   const inputVal = useRef();
   // useEffect
-  const tag = {
-    restaurant: [
-      '맛집',
-      '추천',
-      '내돈내산',
-      '존맛',
-      '짱맛',
-      '대존맛',
-      '친구',
-      '남친',
-      '여친',
-      '가족',
-      '분위기',
-      '오지는',
-      '가성비',
-      '미쳤음',
-      '로컬추천',
-    ],
-    local_cafe: [
-      '카페',
-      '커피',
-      '커피맛',
-      '베이커리',
-      '사진',
-      '미쳤음',
-      '사진찍기',
-      '인생샷',
-      '친구',
-      '분위기',
-      '내돈내산',
-    ],
-    shopping_cart: [
-      '추천',
-      '내돈내산',
-      '가성비',
-      '친구선물',
-      '실사용기',
-      '1달 사용',
-    ],
-    map: [
-      '여행지',
-      '뷰개쩌는',
-      '남친',
-      '여친',
-      '친구',
-      '가족',
-      '분위기좋은',
-      '아늑한',
-      '가성비',
-      '사진',
-      '포토스팟',
-      '조용한',
-      '뷰좋은',
-      '내돈내산',
-    ],
-  };
+
   const randomTags = (t) => {
+    const tag = {
+      restaurant: [
+        '맛집',
+        '추천',
+        '내돈내산',
+        '존맛',
+        '짱맛',
+        '대존맛',
+        '친구',
+        '남친',
+        '여친',
+        '가족',
+        '분위기',
+        '오지는',
+        '가성비',
+        '미쳤음',
+        '로컬추천',
+      ],
+      local_cafe: [
+        '카페',
+        '커피',
+        '커피맛',
+        '베이커리',
+        '사진',
+        '미쳤음',
+        '사진찍기',
+        '인생샷',
+        '친구',
+        '분위기',
+        '내돈내산',
+      ],
+      shopping_cart: [
+        '추천',
+        '내돈내산',
+        '가성비',
+        '친구선물',
+        '실사용기',
+        '1달 사용',
+      ],
+      map: [
+        '여행지',
+        '뷰개쩌는',
+        '남친',
+        '여친',
+        '친구',
+        '가족',
+        '분위기좋은',
+        '아늑한',
+        '가성비',
+        '사진',
+        '포토스팟',
+        '조용한',
+        '뷰좋은',
+        '내돈내산',
+      ],
+    };
     let result = [];
     if (t === 'shopping_cart') {
       return [...tag[t]];
@@ -190,4 +194,4 @@ const Search = ({ setSearchResult }) => {
   );
 };
 
-export default React.memo(Search);
+export default Search;
