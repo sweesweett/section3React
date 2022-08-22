@@ -19,14 +19,14 @@ const ToDoList = ({ favorite }) => {
   }, [setToDoData]);
   return (
     <>
+      <div>MEMO</div>
       <WriteTodo setToDoData={setToDoData} favorite={favorite} />
-      <div>To Do List</div>
+
       <TodoUl>
         {toDoData.map((el) => (
           <Todo el={el} setToDoData={setToDoData} key={el.id} />
         ))}
       </TodoUl>
-      {/* 보류 */}
     </>
   );
 };

@@ -70,8 +70,17 @@ const Todo = ({ el, setToDoData }) => {
               <span onClick={() => handleDelete(el.id)}>삭제</span>
             </div>
             <div>
-              <span>{el.title}</span>
-              <p>{el.content}</p>
+              <span>{new Date(el.createdAt).toLocaleString('ko-KR')}</span>
+              <span>{el.memo}</span>
+              <p>
+                <a href={el.likeContent.link} target='_blank' rel='noreferrer'>
+                  {el.likeContent.title
+                    .replaceAll('<b>', '')
+                    .replaceAll('</b>', '')
+                    .replaceAll('&quot;', '')
+                    .replaceAll('&apos;', '')}
+                </a>
+              </p>
             </div>
           </>
         ) : (

@@ -9,7 +9,6 @@ const WriteDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-color: black;
   padding-top: 10px;
   border-radius: 5px;
   label {
@@ -24,7 +23,7 @@ const WriteDiv = styled.div`
     border: 2px solid black;
     margin: auto;
   }
-  textarea {
+  select {
     width: 90%;
     padding: 5px;
     border-radius: 5px;
@@ -57,10 +56,13 @@ const WriteTodo = ({ setToDoData }) => {
   const likeChoice = useRef();
   const handleSubmit = () => {
     const id = uuid();
+    const createdAt = new Date().getTime();
     const data = {
       id,
       memo: memo.current.value,
-      // content: content.current.value,
+      likeContent: {
+        ...favorite.filter((el) => el.id === likeChoice.current.value)[0],
+      },
     };
     axios
       .post('http://localhost:4000/todo', data)
@@ -69,15 +71,16 @@ const WriteTodo = ({ setToDoData }) => {
         setToDoData(data);
       })
       .catch((err) => alert('글을 등록하지 못했어요!'));
+    console.log(createdAt);
   };
   return (
     <WriteDiv>
-      <label htmlFor='writeMemo'>제목</label>
+      <label htmlFor='writeMemo'>메모</label>
       <input type='text' id='writeMemo' ref={memo} />
       <label htmlFor='writeSelect'>좋아요 리스트</label>
       <select name='' id='' ref={likeChoice}>
         {favorite.map((el, index) => (
-          <option key={index}>
+          <option key={index} value={el.id}>
             {el.title
               .replaceAll('<b>', '')
               .replaceAll('</b>', '')
