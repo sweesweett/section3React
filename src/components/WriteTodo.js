@@ -8,40 +8,50 @@ const WriteDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
-  padding-top: 10px;
+  align-items: flex-start;
+  padding: 10px;
   border-radius: 5px;
+  background-color: 060606;
+  position: relative;
   label {
-    color: white;
-    margin: 5px 50px;
+    margin: 10px 0 10px 5%;
+    font-weight: 700;
+    font-size: 14px;
   }
   input {
     width: 90%;
     padding: 5px;
-    border-radius: 5px;
     outline: none;
-    border: 2px solid black;
+    border: none;
+    border-bottom: 2px dashed black;
     margin: auto;
+    :focus {
+      background-color: #eceff1;
+    }
   }
   select {
-    width: 90%;
+    width: 50%;
     padding: 5px;
     border-radius: 5px;
     outline: none;
-    margin: auto;
+    border: none;
+    margin-left: 5%;
     resize: none;
   }
   button {
     width: 50px;
-    align-self: flex-end;
+    /* align-self: flex-end;
     margin-right: 40px;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 10px; */
     padding: 5px;
     border: none;
     background-color: white;
     border-radius: 10px;
     font-weight: 700;
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
   }
 `;
 
@@ -60,6 +70,7 @@ const WriteTodo = ({ setToDoData }) => {
     const data = {
       id,
       memo: memo.current.value,
+      createdAt,
       likeContent: {
         ...favorite.filter((el) => el.id === likeChoice.current.value)[0],
       },
@@ -77,7 +88,7 @@ const WriteTodo = ({ setToDoData }) => {
     <WriteDiv>
       <label htmlFor='writeMemo'>메모</label>
       <input type='text' id='writeMemo' ref={memo} />
-      <label htmlFor='writeSelect'>좋아요 리스트</label>
+      <label htmlFor='writeSelect'>관련 포스트</label>
       <select name='' id='' ref={likeChoice}>
         {favorite.map((el, index) => (
           <option key={index} value={el.id}>
@@ -89,7 +100,9 @@ const WriteTodo = ({ setToDoData }) => {
           </option>
         ))}
       </select>
-      <button onClick={handleSubmit}>등록</button>
+      <button className='material-icons' onClick={handleSubmit}>
+        check
+      </button>
     </WriteDiv>
   );
 };

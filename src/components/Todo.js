@@ -8,19 +8,33 @@ const Todoli = styled.li`
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
-  width: 780px;
+  margin: auto;
+  width: 800px;
   height: 120px;
   border: 1px solid #0909092b;
   border-radius: 5px;
   position: relative;
+  .contents {
+    display: flex;
+    flex-direction: column;
+    .date {
+      position: relative;
+      ::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 20px;
+        background-color: #0909092b;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
   .editNdelete {
     align-self: flex-end;
     span:last-child {
       margin-left: 10px;
     }
-  }
-  input[type='checkbox'] {
-    margin-left: 10px;
   }
 `;
 
@@ -69,8 +83,10 @@ const Todo = ({ el, setToDoData }) => {
               <span onClick={() => setIsOpened(!isOpened)}>수정</span>
               <span onClick={() => handleDelete(el.id)}>삭제</span>
             </div>
-            <div>
-              <span>{new Date(el.createdAt).toLocaleString('ko-KR')}</span>
+            <div className='contents'>
+              <span className='date'>
+                {new Date(el.createdAt).toLocaleString('ko-KR').slice(0, 11)}
+              </span>
               <span>{el.memo}</span>
               <p>
                 <a href={el.likeContent.link} target='_blank' rel='noreferrer'>
